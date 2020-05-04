@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Mail\NewUserWelcomeMail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,14 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
+Route::get('email', function() {
+    return new NewUserWelcomeMail();
+});
+
 Route::post('follow/{user}', 'FollowsController@store');
 
+Route::get('/', 'PostsController@index');
 Route::get('/p/create', 'PostsController@create');
 Route::post('/p', 'PostsController@store');
 Route::get('/p/{post}', 'PostsController@show');
